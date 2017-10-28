@@ -2,7 +2,7 @@ matrix:
   include:
     - env: BUILD="swift build"
       os: linux
-    - env: BUILD="swift build -Xlinker -L/usr/local/lib"
+    - env: BUILD="swift build -Xlinker -L/usr/local/lib" SWIFT_VERSION=swift-4.0-RELEASE
       os: osx
   allow_failures:
     - os: osx
