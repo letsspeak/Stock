@@ -1,4 +1,10 @@
 language: objective-c
+
 osx_image: xcode9
+
+before_install:
+  - brew update
+  - brew install mysql
+
 script:
-  - swift build
+  - swift build -Xlinker -L/usr/loal/lib
