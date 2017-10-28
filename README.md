@@ -1,4 +1,5 @@
 # Stock
+[![Build Status](https://travis-ci.org/emonkak/php-orm.svg?branch=master)](https://travis-ci.org/emonkak/php-orm)
 
 # Debug on Xcode
 
