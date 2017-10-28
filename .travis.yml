@@ -17,7 +17,7 @@ dist: trusty
 #  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install mysql; fi
 
 before_install:
-  - sudo apt-get install uuid-dev libmysqlclient-dev -y
+  - sudo apt-get install uuid-dev mysql-common libmysqlclient-dev -y
   - git clone https://github.com/IBM-Swift/Package-Builder.git
 
 script:
