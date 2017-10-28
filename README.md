@@ -1,13 +1,22 @@
 # Stock
 
-# run on Xcode
+# Debug on Xcode
 
 1. Install MySQL
 
-`brew install mysql
+`brew install mysql`
 
-2. generate xcodeproj
+2. Generate xcodeproj via Swift Package Manager
 
-`cd path/to/local-repos`
-`make xcode`
+```
+cd path/to/local-repos
+make xcode
+```
 
+3. Open `Stock.xcodeproj`
+
+4. Select Product -> Scheme -> Edit Scheme... on Xcode menu
+
+5. Info tab with Run pane, Select Executable `Stock` and check `Debug executable`
+
+6. Select Product -> Run on Xcode menu
