@@ -7,7 +7,7 @@ matrix:
   allow_failures:
     - os: osx
 
-language: objective-c
+language: generic
 sudo: required
 dist: trusty
 osx_image: xcode9
