@@ -1,10 +1,13 @@
 # Stock
 
-# Install on macOS with Homebrew
+# run on Xcode
 
-```
-brew instal mysql
-swift package -Xlinker -L/usr/local/lib generate-xcodeproj
-```
+1. Install MySQL
 
+`brew install mysql
+
+2. generate xcodeproj
+
+`cd path/to/local-repos`
+`make xcode`
 

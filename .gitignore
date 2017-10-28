@@ -67,3 +67,6 @@ PerfectTemplate.xcodeproj
 Tests/
 webroot/
 Package.pins
+
+# Project
+*.xcodeproj/*

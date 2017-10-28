@@ -21,6 +21,7 @@ import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
 import PerfectMySQL
+import StockHTTP
 
 func handler(data: [String:Any]) throws -> RequestHandler {
   return {
@@ -64,26 +65,16 @@ func mysqlTest() {
   })
 }
 
-// Configuration data for an example server.
-// This example configuration shows how to launch a server
-// using a configuration dictionary.
-
-
 let confData = [
   "servers": [
-    // Configuration data for one server which:
-    //  * Serves the hello world message at <host>:<port>/
-    //  * Serves static files out of the "./webroot"
-    //    directory (which must be located in the current working directory).
-    //  * Performs content compression on outgoing data when appropriate.
     [
       "name":"localhost",
       "port":8080,
       "routes":[
-        ["method":"get", "uri":"/", "handler": handler],
-        ["method":"get", "uri":"/**", "handler": PerfectHTTPServer.HTTPHandler.staticFiles,
-         "documentRoot":"./webroot",
-         "allowResponseFilters":true]
+        ["method": "get", "uri":"/", "handler": handler],
+        ["method": "get", "uri":"/**", "handler": StockHttpHandler.staticFiles,
+         "documentRoot": "/Users/omiya/git/Stock/public",
+         "allowResponseFilters": true],
       ],
       "filters":[
         [
@@ -97,9 +88,8 @@ let confData = [
 ]
 
 do {
-  // Launch the servers based on the configuration data.
   try HTTPServer.launch(configurationData: confData)
 } catch {
-  fatalError("\(error)") // fatal error launching one of the servers
+  fatalError("\(error)")
 }
 
