@@ -43,5 +43,5 @@
 
 1. `$ git clone https://github.com/letsspeak/Stock.git`
 1. `$ cd Stock`
-1. `$ swift build`
+1. `$ swift build` or `$ swift build -c release`
 
