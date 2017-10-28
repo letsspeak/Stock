@@ -1,7 +1,9 @@
 matrix:
   include:
-    - os: linux
-    - os: osx
+    - env: BUILD="swift build"
+      os: linux
+    - env: BUILD="swift build -Xlinker -L/usr/local/lib"
+      os: osx
   allow_failures:
     - os: osx
 
@@ -12,11 +14,10 @@ osx_image: xcode9
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then install mysql; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install mysql; fi
 
 install:
   - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then swift build; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then swift build -Xlinker -L/usr/loal/lib; fi
+  - $BUILD
