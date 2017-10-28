@@ -1,5 +1,5 @@
 # Stock
-[![Build Status](https://travis-ci.org/emonkak/php-orm.svg?branch=master)](https://travis-ci.org/emonkak/php-orm)
+[![Build Status](https://travis-ci.org/letsspeak/Stock.svg?branch=master)](https://travis-ci.org/letsspeak/Stock)
 
 # Debug on Xcode
 
