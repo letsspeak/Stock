@@ -1,5 +1,5 @@
 version: 0.0
 os: linux
 files:
-  - source: ./.build/x86_64-unknown-linux/debug/Stock
-    destination: ~/Hoge
+  - source: /
+    destination: /home/ubuntu/hoge
