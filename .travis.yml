@@ -19,3 +19,4 @@ deploy:
   deployment_group: StockDeployGroup
   on:
     repo: letsspeak/Stock
+    branch: codedeploy-travisci
