@@ -17,6 +17,7 @@ deploy:
   bundle_type: zip
   application: Stock
   deployment_group: StockDeployGroup
+  region: ap-northeast-1
   on:
     repo: letsspeak/Stock
     branch: codedeploy-travisci
