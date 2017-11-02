@@ -20,4 +20,8 @@ deploy:
   region: ap-northeast-1
   on:
     repo: letsspeak/Stock
-    branch: codedeploy-travisci
+    branch: master
+notifications:
+  email:
+    on_success: never
+    on_failure: always
