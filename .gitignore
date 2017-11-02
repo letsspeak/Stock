@@ -68,5 +68,8 @@ Tests/
 webroot/
 Package.pins
 
+# Package-Builder
+Package-Builder/
+
 # Project
 *.xcodeproj/*

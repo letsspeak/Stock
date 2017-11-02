@@ -1,2 +1,2 @@
 #!/bin/bash
-mv Stock stock
+mv /home/stock/Stock /home/stock/stock

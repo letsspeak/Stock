@@ -1,5 +1,5 @@
 #!/bin/bash
-running = `pgrep -U stock -x stock`
+running = `pgrep -U root -x stock`
 if [[ -n $runnning ]]; then
-    pkill -U stock -x stock
+    pkill -U root -x stock
 fi
