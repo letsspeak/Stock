@@ -69,7 +69,7 @@ let confData = [
   "servers": [
     [
       "name":"localhost",
-      "port":8080,
+      "port":80,
       "routes":[
         ["method": "get", "uri":"/", "handler": handler],
         ["method": "get", "uri":"/**", "handler": StockHttpHandler.staticFiles,
