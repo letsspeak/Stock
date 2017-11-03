@@ -1,2 +1,2 @@
 #!/bin/bash
-/home/stock/stock >> /var/log/stock/stock.log 2>&1 &
+/home/stock/stock serve --env=production >> /var/log/stock/stock.log 2>&1 &

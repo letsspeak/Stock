@@ -1,12 +1,39 @@
-matrix:
-  include:
-  - os: linux
-    dist: trusty
-    sudo: required
-    services: docker
-    env: DOCKER_IMAGE=ubuntu:16.04 SWIFT_SNAPSHOT=4.0
+os:
+    - linux
+    - osx
+language: generic
+sudo: required
+dist: trusty
+
+osx_image: xcode8.3
+before_install:
+    - if [ $TRAVIS_OS_NAME == "osx" ]; then
+            brew tap vapor/tap;
+            brew update;
+            brew install vapor;
+        else
+            eval "$(curl -sL https://apt.vapor.sh)";
+            sudo apt-get install vapor;
+            sudo chmod -R a+rx /usr/;
+        fi
+
 script:
-- "./build.sh"
+    - swift build
+    - swift build -c release
+    - swift test
+
+after_success:
+    - eval "$(curl -sL https://swift.vapor.sh/codecov)"
+
+#matrix:
+#  include:
+#  - os: linux
+#    dist: trusty
+#    sudo: required
+#    services: docker
+#    env: DOCKER_IMAGE=ubuntu:16.04 SWIFT_SNAPSHOT=4.0
+#script:
+#- "./build.sh"
 deploy:
   provider: codedeploy
   access_key_id: AKIAIAK3BKYAG76F27FQ
@@ -25,3 +52,4 @@ notifications:
   email:
     on_success: never
     on_failure: always
+
