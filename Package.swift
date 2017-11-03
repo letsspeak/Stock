@@ -1,32 +1,26 @@
+// swift-tools-version:4.0
+
 import PackageDescription
+
 let package = Package(
     name: "Stock",
-    targets: [
-        Target(name: "clibc", dependencies: []),
-        Target(
-            name: "libc",
-            dependencies: [
-                "clibc"
-            ]),
-        Target(
-            name: "POSIX",
-            dependencies: [
-                "libc"
-            ]),
-        Target(
-            name: "StockHTTP",
-            dependencies: [
-                "POSIX",
-            ]),
-        Target(
-            name: "Stock",
-            dependencies: [
-                "POSIX",
-                "StockHTTP",
-            ]),
+    products: [
+        .library(name: "App", targets: ["App"]),
+        .executable(name: "stock", targets: ["Run"])
     ],
     dependencies: [
-       .Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", majorVersion: 3),
-       .Package(url: "https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 3),
+        .package(url: "https://github.com/vapor/vapor.git", .upToNextMajor(from: "2.1.0")),
+        .package(url: "https://github.com/vapor/fluent-provider.git", .upToNextMajor(from: "1.2.0")),
+    ],
+    targets: [
+        .target(name: "App", dependencies: ["Vapor", "FluentProvider"],
+                exclude: [
+                    "Config",
+                    "Public",
+                    "Resources",
+                ]),
+        .target(name: "Run", dependencies: ["App"]),
+        .testTarget(name: "AppTests", dependencies: ["App", "Testing"])
     ]
 )
+
