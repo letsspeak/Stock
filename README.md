@@ -1,14 +1,17 @@
 # Stock
 [![Build Status](https://travis-ci.org/letsspeak/Stock.svg?branch=master)](https://travis-ci.org/letsspeak/Stock)
 
+## Dependencies
+
+- MySQL
+- OpenSSL
+
 ## macOS
 
 ### Requirements
 
 - Swift 3.0
 - Xcode
-- MySQL (via [Homebrew](https://brew.sh/)
-  - `$ brew install mysql`
 
 ### Build
 
@@ -16,12 +19,15 @@
 1. `$ cd Stock`
 1. `$ swift build -Xlinker -L/usr/local/lib generate-xcodeproj`
 
-### Develop & Debug on Xcode
+### Develop & Debug with Xcode on macOS
 
+1. Install dependencies
+    1. `$ brew install mysql`
+    1. `$ brew install vapor/tap/ctls` or `$ brew install vapor/tap/ctls`
 1. `$ swift package -Xlinker -L/usr/local/lib generate-xcodeproj`
 1. Open generated `Stock.xcodeproj`
 1. Select Product -> Scheme -> Edit Scheme... on Xcode menu
-1. Info tab with Run pane, Select Executable `Stock` and check `Debug executable`
+1. Info tab with Run pane, Select Executable `Run` and check `Debug executable`
 1. Select Product -> Run on Xcode menu
 
 ## Ubuntu 16.04
