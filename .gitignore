@@ -16,3 +16,8 @@ DerivedData/
 # Package-Builder
 Package-Builder/
 
+# React
+Resources/server*
+Public/js
+node_modules
+
