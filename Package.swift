@@ -27,6 +27,6 @@ let package = Package(
 )
 
 #if os(Linux)
-let duktape = Package(url: "https://github.com/remko/swift-duktape.git", upToNextMinor(from: "0.2.0"))
+let duktape = Package(url: "https://github.com/remko/swift-duktape.git", .upToNextMinor(from: "0.2.0"))
 package.dependencies.append(duktape)
 #endif

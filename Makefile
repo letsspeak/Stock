@@ -7,10 +7,10 @@ all: build
 build:
 ifeq ($(OPTIMIZE), 1)
 	NODE_ENV=production $(WEBPACK) --bail
-	swift build -v -c release
+	swift build -c release
 else
 	$(WEBPACK) --bail
-	swift build -v
+	swift build
 endif
 
 .PHONY: run
