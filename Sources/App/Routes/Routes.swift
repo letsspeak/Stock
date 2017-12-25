@@ -110,7 +110,7 @@ extension Droplet {
     
     func setupRoutes() throws {
         get("/") { req in
-            if true { //req.headers["X-DevServer"] != nil {
+            if req.headers["X-DevServer"] != nil {
                 // When accessing through the dev server, don't prerender anything
                 return try self.view.make("index", [
                     "html": "",

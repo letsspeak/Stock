@@ -15,7 +15,7 @@ endif
 
 .PHONY: run
 run:
-	./.build/debug/App serve
+	./.build/debug/stock serve
 
 .PHONY: watch
 watch:
