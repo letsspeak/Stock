@@ -18,12 +18,10 @@ var appDependencies: [Target.Dependency] = [
 ]
 
 #if os(Linux)
-let duktape: Package.Dependency =
-    .package(url: "https://github.com/remko/swift-duktape.git", .upToNextMinor(from: "0.2.0"))
-packageDependencies.append(duktape)
-let duktapePackage: Target.Dependency =
-    .byName(name: "swift-duktape")
-appDependencies.append(duktapePackage)
+packageDependencies.append(
+    Package.Dependency.package(
+        url: "https://github.com/remko/swift-duktape.git", .upToNextMinor(from: "0.2.0")))
+appDependencies.append(Target.Dependency.byName(name: "swift-duktape"))
 #endif
 
 let package = Package(
