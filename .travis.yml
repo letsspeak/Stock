@@ -3,14 +3,13 @@ matrix:
     - os: linux
       dist: trusty
       sudo: required
-      services:
-       - docker
+      services: docker
       before_install: &bi
         - docker pull letsspeak/stock-ci:latest
-        - export CID=$(docker run -d -it -p 8080:8080 letsspeak/stock-ci:latest bash)
-        - docker cp . $CID:/var/stock
+        - docker run -d -it -v $TRAVIS_BUILD_DIR:/var/stock -p 8080:8080 letsspeak/stock-ci:latest bash
+        - docker ps -a
       script:
-        - docker exec $CID bash -c 'OPTIMIZE=1 make deps all'
+        - OPTIMIZE=1 make deps all
 
 #after_success:
 #  - ls -al
