@@ -1,14 +1,6 @@
 version: 2
 
 jobs:
-  macos:
-    macos:
-      xcode: "9.0"
-    steps:
-      - run: brew install vapor/tap/vapor
-      - checkout
-      - run: OPTIMIZE=1 make deps all
-
   ubuntu:
     docker:
       - image: letsspeak/stock-ci:latest
@@ -20,5 +12,4 @@ workflows:
   version: 2
   tests:
     jobs:
-#      - macos
       - ubuntu
