@@ -6,19 +6,24 @@
 ### Build
 
 1. `git clone https://github.com/letsspeak/Stock.git && cd Stock`
-1. `docker build ./Deployment/` or `docker pull letsspeak/stock-ci:latest`
-1. `docker run -d -it -p 8080:8080 letsspeak/stock-ci:latest bash`
-1. `export CID=[CONTAINER_ID]`
+1. `docker build ./Docker/ci/` or `docker pull letsspeak/stock-ci:latest`
+1. `export CID=$(docker run -d -it -p 8080:8080 letsspeak/stock-ci:latest bash)`
 1. `docker cp . $CID:/var/stock`
 1. `docker exec $CID bash -c 'OPTIMIZE=1 make deps all'`
 
 ### Start Server
 
-1. `docker exec $CID ./.build/x86_64-unknown-linux/release/stock serve`
+1. `docker exec $CID ./.build/release/stock serve`
 
 ### Stop Server
 
 1. `docker exec $CID pkill -U root -x stock`
+
+### Deployment
+
+1. Perform the above Build procedure
+1. `docker cp $CID:/var/stock ./Docker/deploy`
+1. `docker build ./Docker/deploy`
 
 ## Ubuntu 16.04
 
