@@ -3,7 +3,7 @@
 
 ## Docker
 
-### Build
+### Run Docker and Build
 
 1. `git clone https://github.com/letsspeak/Stock.git && cd Stock`
 1. `docker build ./Docker/ci/` or `docker pull letsspeak/stock-ci:latest`
