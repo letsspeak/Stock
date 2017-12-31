@@ -8,8 +8,9 @@ matrix:
         - docker pull letsspeak/stock-ci:latest
         - docker run -d -it -v $TRAVIS_BUILD_DIR:/var/stock -p 8080:8080 letsspeak/stock-ci:latest bash
         - docker ps -a
-      script:
-        - OPTIMIZE=1 make deps all
+
+script:
+  - OPTIMIZE=1 make deps all
 
 #after_success:
 #  - ls -al
