@@ -2,6 +2,7 @@ version: 2
 
 jobs:
   build-job:
+    docker_layer_caching: true
     docker:
       - image: letsspeak/stock-ci:latest
     steps:
@@ -9,6 +10,7 @@ jobs:
       - run: OPTIMIZE=1 make deps all
 
   deploy-job:
+    docker_layer_caching: true
     docker:
       - image: letsspeak/stock-ci:latest
     steps:
