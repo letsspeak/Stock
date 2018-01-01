@@ -2,6 +2,7 @@
 
 AWS_DEFAULT_REGION=ap-northeast-1
 AWS_ECS_TASKDEF_NAME=stock-task
+AWS_ECS_CONTAINER_NAME=stock-container
 AWS_ECS_CLUSTER_NAME=stock-cluster
 AWS_ECS_SERVICE_NAME=stock-service
 AWS_ECR_REP_NAME=stock
@@ -24,7 +25,7 @@ make_task_def(){
 		}
 	]'
 
-	task_def=$(printf "$task_template" ${AWS_ECS_TASKDEF_NAME} $AWS_ACCOUNT_ID ${AWS_DEFAULT_REGION} ${AWS_ECR_REP_NAME} $CIRCLE_SHA1)
+	task_def=$(printf "$task_template" ${AWS_ECS_CONTAINER_NAME} $AWS_ACCOUNT_ID ${AWS_DEFAULT_REGION} ${AWS_ECR_REP_NAME} $CIRCLE_SHA1)
 }
 
 # more bash-friendly output for jq
