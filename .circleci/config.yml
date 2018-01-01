@@ -5,17 +5,27 @@ jobs:
     docker_layer_caching: true
     docker:
       - image: letsspeak/stock-ci:latest
+    working_directory: ~/stock
     steps:
       - checkout
       - run: OPTIMIZE=1 make deps all
+      - run: pwd
+      - run: ls -al
+      - persist_to_workspace:
+        root: .
+        paths: .
 
   deploy-job:
     docker_layer_caching: true
-    docker:
-      - image: letsspeak/stock-ci:latest
+    machine:
+      enabled: true
+    working_directory: ~/stock
     steps:
       - checkout
-      - run: OPTIMIZE=1 make deps all
+      - attach_workspace:
+        - at: ~/stock
+      - run: pwd
+      - run: ls -al
 
 #    steps:
 #      - run: docker ps -a
