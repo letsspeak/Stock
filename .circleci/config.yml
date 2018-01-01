@@ -23,13 +23,11 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/stock/Docker/deploy
+          at: ~/stock/Docker/deploy/stock
       - run: pwd
       - run: ls -al
-      - run: ls -al ~/stock
-      - run: ls -al ~/stock/Docker
-      - run: ls -al ~/stock/Docker/deploy
       - run: ls -al ~/stock/Docker/deploy/stock
+      - run: docker build ./Docker/deploy
 
 #    steps:
 #      - run: docker ps -a
