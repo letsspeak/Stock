@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # valiabls
-AWS_DEFAULT_REGION=us-east-1
-AWS_ECS_TASKDEF_NAME=nginx-sample-webapp
-AWS_ECS_CLUSTER_NAME=sample-webapp-cluster
-AWS_ECS_SERVICE_NAME=sample-webapp-service
-AWS_ECR_REP_NAME=nginx-sample-webapp
+AWS_DEFAULT_REGION=ap-northeast-1
+AWS_ECS_TASKDEF_NAME=stock-task
+AWS_ECS_CLUSTER_NAME=stock-cluster
+AWS_ECS_SERVICE_NAME=stock-service
+AWS_ECR_REP_NAME=stock
 
 # Create Task Definition
 make_task_def(){
