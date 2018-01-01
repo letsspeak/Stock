@@ -15,16 +15,19 @@
 ### Start Server
 
 1. `docker exec $CID ./.build/release/stock serve`
+1. open `http://localhost:8080` on your web browser
 
 ### Stop Server
 
 1. `docker exec $CID pkill -U root -x stock`
 
-### Deployment
+### Create Docker image for deploy
 
 1. Perform the above Build procedure
 1. `docker cp $CID:/var/stock ./Docker/deploy`
 1. `docker build ./Docker/deploy`
+
+Note: deployment server port is 80
 
 ## Ubuntu 16.04
 

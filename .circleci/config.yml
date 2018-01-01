@@ -9,8 +9,6 @@ jobs:
     steps:
       - checkout
       - run: OPTIMIZE=1 make deps all
-      - run: pwd
-      - run: ls -al
       - persist_to_workspace:
           root: .
           paths: .
@@ -24,14 +22,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/stock/Docker/deploy/stock
-      - run: pwd
-      - run: ls -al
-      - run: ls -al ~/stock/Docker/deploy/stock
       - run: docker build -t $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/stock:$CIRCLE_SHA1 ./Docker/deploy
       - run: docker images
       - run: ./deploy.sh
-#    steps:
-#      - run: docker ps -a
 
 workflows:
   version: 2
