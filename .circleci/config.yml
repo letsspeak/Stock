@@ -22,8 +22,6 @@ jobs:
     working_directory: ~/stock
     steps:
       - checkout
-      - attach_workspace:
-          - at: ~/stock
       - run: pwd
       - run: ls -al
 
