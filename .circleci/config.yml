@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-        - at: ~/stock
+          - at: ~/stock
       - run: pwd
       - run: ls -al
 
