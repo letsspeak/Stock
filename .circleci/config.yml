@@ -12,8 +12,8 @@ jobs:
       - run: pwd
       - run: ls -al
       - persist_to_workspace:
-        root: .
-        paths: .build
+          root: .
+          paths: .
 
   deploy-job:
     docker_layer_caching: true
