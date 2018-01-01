@@ -1,14 +1,14 @@
 version: 2
 
 jobs:
-  build-job:
+  build:
     docker:
       - image: letsspeak/stock-ci:latest
     steps:
       - checkout
       - run: OPTIMIZE=1 make deps all
 
-  deploy-job:
+  deploy:
     steps:
       - run: docker ps -a
 
@@ -16,10 +16,10 @@ workflows:
   version: 2
   tests:
     jobs:
-      - build-job
-      - deploy-job
+      - build
+      - deploy
         requires:
-          - build-job
+          - build
 #          filters:
 #            branches:
 #              only: master
