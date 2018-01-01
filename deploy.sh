@@ -82,4 +82,4 @@ register_definition() {
 
 configure_aws_cli
 push_ecr_image
-#deploy_cluster
+deploy_cluster
