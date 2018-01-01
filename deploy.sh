@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# valiabls
 AWS_DEFAULT_REGION=ap-northeast-1
 AWS_ECS_TASKDEF_NAME=stock-task
 AWS_ECS_CLUSTER_NAME=stock-cluster
@@ -18,7 +17,7 @@ make_task_def(){
 			"cpu": 10,
 			"portMappings": [
 				{
-					"containerPort": 80,
+					"containerPort": 8080,
 					"hostPort": 80
 				}
 			]
@@ -67,7 +66,7 @@ deploy_cluster() {
 
 push_ecr_image(){
 	eval $(aws ecr get-login --region ${AWS_DEFAULT_REGION})
-	docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/${AWS_ECR_REP_NAME}:$CIRCLE_SHA1
+	docker push $AWS_ACCOUNT_ID.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REP_NAME}:$CIRCLE_SHA1
 }
 
 register_definition() {
