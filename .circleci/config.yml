@@ -28,7 +28,7 @@ jobs:
       - run: ls -al
       - run: ls -al ~/stock/Docker/deploy/stock
       - run: docker build -t $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/stock:$CIRCLE_SHA1 ./Docker/deploy
-      - run: ./circleci/deploy.sh
+      - run: ./deploy.sh
 #    steps:
 #      - run: docker ps -a
 
