@@ -9,8 +9,14 @@ jobs:
       - run: OPTIMIZE=1 make deps all
 
   deploy-job:
+    docker:
+      - image: letsspeak/stock-ci:latest
     steps:
-      - run: docker ps -a
+      - checkout
+      - run: OPTIMIZE=1 make deps all
+
+#    steps:
+#      - run: docker ps -a
 
 workflows:
   version: 2
