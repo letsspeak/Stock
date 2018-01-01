@@ -27,7 +27,7 @@
 1. `docker cp $CID:/var/stock ./Docker/deploy`
 1. `docker build ./Docker/deploy`
 
-Note: deployment server port is 80
+Note: deployment server port is 8080
 
 ## Ubuntu 16.04
 
