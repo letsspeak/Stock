@@ -11,6 +11,7 @@ script:
   - docker run -d letsspeak/stock-ci:latest
   - docker ps -a
   - docker cp . $(docker ps -aq):/var/stock
+  - docker ps -a
   - docker exec $(docker ps -aq) bash -c 'OPTIMIZE=1 make deps all'
 
 notifications:
