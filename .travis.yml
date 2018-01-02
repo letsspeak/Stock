@@ -8,10 +8,10 @@ matrix:
 
 script:
   - docker pull letsspeak/stock-ci:latest
-  - docker run -d -l stock-ci letsspeak/stock-ci:latest
+  - docker run -d letsspeak/stock-ci:latest
   - docker ps -a
-  - docker cp . $(docker ps --filter "label=stock-ci" -q):/var/stock
-  - docker exec $(docker ps --filter "label=stock-ci" -q) bash -c 'OPTIMIZE=1 make deps all'
+  - docker cp . $(docker ps -aq):/var/stock
+  - docker exec $(docker ps -aq) bash -c 'OPTIMIZE=1 make deps all'
 
 notifications:
   email:
