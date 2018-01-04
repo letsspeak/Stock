@@ -1,0 +1,39 @@
+version: 2
+
+jobs:
+  build-job:
+    docker:
+      - image: letsspeak/stock-ci:latest
+    docker_layer_caching: true
+    working_directory: ~/stock
+    steps:
+      - checkout
+      - run: OPTIMIZE=1 make deps all
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  deploy-job:
+    machine:
+      enabled: true
+    docker_layer_caching: true
+    working_directory: ~/stock
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/stock/Docker/deploy/stock
+      - run: docker build -t $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/stock:$CIRCLE_SHA1 ./Docker/deploy
+      - run: docker images
+      - run: ./deploy.sh
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-job
+      - deploy-job:
+          requires:
+            - build-job
+          filters:
+            branches:
+              only: react

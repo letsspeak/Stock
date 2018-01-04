@@ -3,52 +3,18 @@ matrix:
     - os: linux
       dist: trusty
       sudo: required
-      services: docker
-      env: DOCKER_IMAGE=ubuntu:16.04 SWIFT_SNAPSHOT=4.0
+      services:
+       - docker
 
 script:
-  - "./build.sh"
-
-after_success:
-  - ls -al
-  - sudo cp .build/release/stock CodeDeploy/accompany/stock
-  - cp -r Config CodeDeploy/accompany/
-  - cp -r Resources CodeDeploy/accompany/
-  - cp -r Public CodeDeploy/accompany/
-  - cd $TRAVIS_BUILD_DIR/CodeDeploy/accompany
-  - zip -r $TRAVIS_BUILD_DIR/CodeDeploy/s3upload/Stock.zip .
-  - cd $TRAVIS_BUILD_DIR
-
-deploy:
-  - provider: s3
-    region: ap-northeast-1
-    access_key_id: AKIAIAK3BKYAG76F27FQ
-    secret_access_key:
-      secure: x3mZXxaR6reSK2dNZ3P/ODRZeXWWOSNyt6qcW1NjNf2H0HbIbGYlwT6gwI8cRF/spYVakVeCV0qo7DV7xoRmehi9JYAVZJdImkCpI8m6BArsKmmcvMfuFo+/PPKAYYGrZNFMK7wEqSkCO7s+gHpVtqEmCzf9l/VUT+0JMWM2347Nvf89M6oANdGNK4VddIqXIfkq0oQEX4NbtiehA31qUZSFv9KTzMlKQEsGOaPDnRsk8R+IZuGCTRG4weJDAIyRaqai7aJIUFcB5f5LFHTgI84dJ/O6wPvm6GY8EuxlL3QOEgN/BAfyiVsb/rV3FmEnUuMatoKEZBg3uJrzqzwKHQoyZMmIJ5JwzgLAWmluLqbORhH6c1Uv0BJiOhY9N1e8aGRC7+G2UdFuyKt5tdy+y78gTP9gwRWMzCXJfwEPak1502FOP5CPWz0V4Kf9bnqXQt29umfnL16/ftvEYxPgV3wCF5CZFHgA+Ma6Vl0aFuv2C1IqHd9S13cOpLlEX7EYmZ8oiUe/u7ic7JiCQTR5nRSvHvklrVAqnI2OSZGQNtw9HIqm5U/DbQdXD4VwwbN0i+K/JAOXiyeeLkyxudnbFriQFBEcKnDGBVqvxSyvN/6IzzXaj7RI3+OSCHZIUSsF6zCUz8QDAfbx4ztNnBTrv6oSFTuwiBZQNshYnOBFo4U=
-    bucket: stock-codedeploy
-    skip_cleanup: true
-    local_dir: CodeDeploy/s3upload
-    upload-dir: latest
-    on:
-      repo: letsspeak/Stock
-      branch: master
-      condition: $TRAVIS_OS_NAME = linux
-  - provider: codedeploy
-    region: ap-northeast-1
-    access_key_id: AKIAIAK3BKYAG76F27FQ
-    secret_access_key:
-      secure: x3mZXxaR6reSK2dNZ3P/ODRZeXWWOSNyt6qcW1NjNf2H0HbIbGYlwT6gwI8cRF/spYVakVeCV0qo7DV7xoRmehi9JYAVZJdImkCpI8m6BArsKmmcvMfuFo+/PPKAYYGrZNFMK7wEqSkCO7s+gHpVtqEmCzf9l/VUT+0JMWM2347Nvf89M6oANdGNK4VddIqXIfkq0oQEX4NbtiehA31qUZSFv9KTzMlKQEsGOaPDnRsk8R+IZuGCTRG4weJDAIyRaqai7aJIUFcB5f5LFHTgI84dJ/O6wPvm6GY8EuxlL3QOEgN/BAfyiVsb/rV3FmEnUuMatoKEZBg3uJrzqzwKHQoyZMmIJ5JwzgLAWmluLqbORhH6c1Uv0BJiOhY9N1e8aGRC7+G2UdFuyKt5tdy+y78gTP9gwRWMzCXJfwEPak1502FOP5CPWz0V4Kf9bnqXQt29umfnL16/ftvEYxPgV3wCF5CZFHgA+Ma6Vl0aFuv2C1IqHd9S13cOpLlEX7EYmZ8oiUe/u7ic7JiCQTR5nRSvHvklrVAqnI2OSZGQNtw9HIqm5U/DbQdXD4VwwbN0i+K/JAOXiyeeLkyxudnbFriQFBEcKnDGBVqvxSyvN/6IzzXaj7RI3+OSCHZIUSsF6zCUz8QDAfbx4ztNnBTrv6oSFTuwiBZQNshYnOBFo4U=
-    bucket: stock-codedeploy
-    key: latest/Stock.zip
-    bundle_type: zip
-    application: Stock
-    deployment_group: StockDeployGroup
-    on:
-      repo: letsspeak/Stock
-      branch: master
-      condition: $TRAVIS_OS_NAME = linux
+  - docker pull letsspeak/stock-ci:latest
+  - docker run -d letsspeak/stock-ci:latest
+  - docker ps -a
+  - docker cp . $(docker ps -aq):/var/stock
+  - docker ps -a
+  - docker exec $(docker ps -aq) bash -c 'OPTIMIZE=1 make deps all'
 
 notifications:
   email:
     on_success: never
-    on_failure: always
+    on_failure: never
