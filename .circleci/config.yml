@@ -36,4 +36,4 @@ workflows:
             - build-job
           filters:
             branches:
-              only: react
+              only: master
