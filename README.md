@@ -72,6 +72,7 @@ Note: deployment server port is 8080
 ### Develop & Debug with Xcode on macOS
 
 1. `$ git clone https://github.com/letsspeak/Stock.git && cd Stock`
+1. `$ make deps all`
 1. `$ swift package generate-xcodeproj`
 1. Open generated `Stock.xcodeproj`
 1. Select Product -> Scheme -> Edit Scheme... on Xcode menu
