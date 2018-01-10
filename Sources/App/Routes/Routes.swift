@@ -102,8 +102,10 @@ extension Droplet {
     
     /* Dummy DB */
     func getStateFromDB() -> [String: Any] {
-        return [
-            "value": 42,
+        return ["todos":
+            [
+                ["id": 0, "text": "TaskA"]
+            ]
         ]
     }
     
@@ -115,8 +117,7 @@ extension Droplet {
                     "html": "",
                     "state": "undefined"
                     ])
-            }
-            else {
+            } else {
                 // Prerender state from the DB
                 let state = self.getStateFromDB()
                 if let result = self.render(state: state) {
@@ -124,8 +125,7 @@ extension Droplet {
                         "html": Node.string(result.html),
                         "state": Node.string(result.state)
                         ])
-                }
-                else {
+                } else {
                     let json = self.toJSON(value: state).replacingOccurrences(of: "'", with: "'\\''")
                     print("To get more information, run:")
                     print("  ./renderComponent '\(json)'")

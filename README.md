@@ -10,7 +10,7 @@
 1. `docker build ./Docker/ci/` or `docker pull letsspeak/stock-ci:latest`
 1. `export CID=$(docker run -d -it -p 8080:8080 letsspeak/stock-ci:latest bash)`
 1. `docker cp . $CID:/var/stock`
-1. `docker exec $CID bash -c 'OPTIMIZE=1 make deps all'`
+1. `docker exec $CID bash -c 'OPTIMIZE=1 make all'`
 
 ### Start Server
 
@@ -54,8 +54,7 @@ Note: deployment server port is 8080
 ### Build
 
 1. `$ git clone https://github.com/letsspeak/Stock.git && cd Stock`
-1. `$ make deps all`
-1. `$ swift build` or `$ swift build -c release`
+1. `$ make all`
 
 ## Debug on macOS
 
@@ -72,7 +71,7 @@ Note: deployment server port is 8080
 ### Develop & Debug with Xcode on macOS
 
 1. `$ git clone https://github.com/letsspeak/Stock.git && cd Stock`
-1. `$ make deps all`
+1. `$ make all`
 1. `$ swift package generate-xcodeproj`
 1. Open generated `Stock.xcodeproj`
 1. Select Product -> Scheme -> Edit Scheme... on Xcode menu

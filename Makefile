@@ -1,15 +1,24 @@
 WEBPACK=./node_modules/.bin/webpack
 
 .PHONY: all
-all: build
+all: deps build
 
-.PHONY: build
-build:
+.PHONY: buld
+build: build-client build-server
+
+.PHONY: build-client
+build-client:
 ifeq ($(OPTIMIZE), 1)
 	NODE_ENV=production $(WEBPACK) --bail
-	swift build -c release
 else
 	$(WEBPACK) --bail
+endif
+
+.PHONY: build-server
+build-server:
+ifeq ($(OPTIMIZE), 1)
+	swift build -c release
+else
 	swift build
 endif
 

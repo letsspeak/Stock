@@ -47,7 +47,7 @@ function createConfig(isProductionMode) {
 }
 
 module.exports = [
-	// Components library. 
+	// Components library.
 	// Debugging info is useless, so forcing production.
 	Object.assign({}, createConfig(true), {
 		entry: { server: './JS/server.js' },

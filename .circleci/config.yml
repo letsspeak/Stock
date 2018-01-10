@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/stock
     steps:
       - checkout
-      - run: OPTIMIZE=1 make deps all
+      - run: OPTIMIZE=1 make all
       - persist_to_workspace:
           root: .
           paths: .
