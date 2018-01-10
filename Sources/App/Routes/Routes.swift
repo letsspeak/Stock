@@ -23,39 +23,38 @@ extension Droplet {
     // Once (and if) this is fixed, we can drop the OSX-specific JSONSerialization
     // implementation in favor of this one.
     func toJSON(value: Any) -> String {
-    let data = try! Jay().dataFromJson(any: value)
-    return String(bytes: data, encoding: String.Encoding.utf8)!
+        let data = try! Jay().dataFromJson(any: value)
+        return String(bytes: data, encoding: String.Encoding.utf8)!
     }
     
     func render(state: [String: Any]) -> (html: String, state: String)? {
-    let stateJSON = toJSON(value: state)
-    let ctx = duk_create_heap(nil, nil, nil, nil, nil)
-    defer { duk_destroy_heap(ctx) }
-    duk_eval_file_noresult(ctx, jsFile)
-    duk_push_global_object(ctx)
-    duk_get_prop_string(ctx, -1, "server")
-    duk_get_prop_string(ctx, -1, "render")
-    duk_push_string(ctx, stateJSON)
-    duk_json_decode(ctx, -1)
-    let ret = duk_safe_call(ctx, { ctx in duk_call(ctx, 1); return 1; }, 1, 1);
-    if ret != DUK_EXEC_SUCCESS {
-    let errorMessage = String(validatingUTF8: duk_safe_to_string(ctx, -1))!
-    print("Error calling render(): \(errorMessage)")
-    duk_pop(ctx)
-    return nil
-    }
-    else {
-    duk_json_encode(ctx, -1)
-    let resultJSON = String(validatingUTF8: duk_to_string(ctx, -1))!
-    duk_pop(ctx)
-    if let result = try? Jay().anyJsonFromData(Array(resultJSON.utf8)) as! [String: Any] {
-    return (
-    html: result["html"]! as! String,
-    state: result["state"]! as! String
-    )
-    }
-    }
-    return nil
+        let stateJSON = toJSON(value: state)
+        let ctx = duk_create_heap(nil, nil, nil, nil, nil)
+        defer { duk_destroy_heap(ctx) }
+        duk_eval_file_noresult(ctx, jsFile)
+        duk_push_global_object(ctx)
+        duk_get_prop_string(ctx, -1, "server")
+        duk_get_prop_string(ctx, -1, "render")
+        duk_push_string(ctx, stateJSON)
+        duk_json_decode(ctx, -1)
+        let ret = duk_safe_call(ctx, { ctx in duk_call(ctx, 1); return 1; }, 1, 1);
+        if ret != DUK_EXEC_SUCCESS {
+            let errorMessage = String(validatingUTF8: duk_safe_to_string(ctx, -1))!
+            print("Error calling render(): \(errorMessage)")
+            duk_pop(ctx)
+            return nil
+        } else {
+            duk_json_encode(ctx, -1)
+            let resultJSON = String(validatingUTF8: duk_to_string(ctx, -1))!
+            duk_pop(ctx)
+            if let result = try? Jay().anyJsonFromData(Array(resultJSON.utf8)) as! [String: Any] {
+                return (
+                    html: result["html"]! as! String,
+                    state: result["state"]! as! String
+                )
+            }
+        }
+        return nil
     }
     
 #else
