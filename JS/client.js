@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 
 import App from './components/App'
 import reducer from './reducers'
-import { addTodo } from './actions'
+import { addTodo, toggleTodo } from './actions'
 
 import 'whatwg-fetch'
 import 'es6-promise'

@@ -104,7 +104,7 @@ extension Droplet {
     func getStateFromDB() -> [String: Any] {
         return ["todos":
             [
-                ["id": 0, "text": "TaskA"]
+                ["id": 0, "text": "TaskA", "completed": false]
             ]
         ]
     }
