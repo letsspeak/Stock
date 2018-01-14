@@ -72,7 +72,7 @@ Note: deployment server port is 8080
 
 1. `$ git clone https://github.com/letsspeak/Stock.git && cd Stock`
 1. `$ make all`
-1. `$ swift package generate-xcodeproj`
+1. `$ make xcode` (or `swift package generate-xcodeproj`)
 1. Open generated `Stock.xcodeproj`
 1. Select Product -> Scheme -> Edit Scheme... on Xcode menu
 1. Info tab with Run pane, Select Executable `Run` and check `Debug executable`

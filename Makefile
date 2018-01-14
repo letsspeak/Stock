@@ -53,3 +53,7 @@ check-integration:
 .PHONY: run-webdriver
 run-webdriver:
 	./node_modules/.bin/phantomjs --webdriver=4444
+
+.PHONY: xcode
+xcode:
+	swift package generate-xcodeproj
