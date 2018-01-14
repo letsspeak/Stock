@@ -1,19 +1,19 @@
 import axios from 'axios'
 
-export const addTodo = (text) => {
+export const addTodo = (task) => {
   return {
     type: 'ADD_TODO',
-    text
+    task
   }
 }
 
-export const postTodo = (text) => {
+export const postTodo = (title) => {
   return (dispatch) => {
     dispatch({ type: 'POST_TODO' })
-    return axios.post('/api/todos', {
-        title: text
+    return axios.post('/api/todo/tasks', {
+        title: title
       })
-      .then(response => dispatch(addTodo(text)))
+      .then(response => dispatch(addTodo(response.data)))
       .catch(error => console.log(error))
   }
 }

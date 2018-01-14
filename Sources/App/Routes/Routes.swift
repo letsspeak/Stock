@@ -141,6 +141,6 @@ extension Droplet {
                 body: self.toJSON(value: self.getStateFromDB())
             )
         }
-        try resource("api/todos", TodoApi.self)
+        try resource("api/todo/tasks", TodoTasksApi.self)
     }
 }

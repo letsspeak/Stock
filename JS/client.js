@@ -35,7 +35,7 @@ if (window.__PRELOADED_STATE__) {
   load(window.__PRELOADED_STATE__);
 } else {
   // We didn't prerender on the server, so we need to get our state
-  axios.get('/api/state')
-    .then(response => load(response.data))
+  axios.get('/api/todo/tasks')
+    .then(response => load({ "todos": response.data }))
     .catch(error => console.log(error))
 }
