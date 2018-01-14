@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 
 import App from './components/App'
 import reducer from './reducers'
-import { addTodo } from './actions'
 
 export function render(preloadedState = undefined) {
   const store = createStore(reducer, preloadedState);
