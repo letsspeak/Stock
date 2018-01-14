@@ -1,12 +1,12 @@
 import React from 'react'
-import AddTodo from '../containers/AddTodo'
-import VisibleTodoList from '../containers/VisibleTodoList'
+import AddTask from '../containers/AddTask'
+import VisibleTaskList from '../containers/VisibleTaskList'
 import Footer from './Footer'
 
 const App = () => (
   <div>
-    <AddTodo />
-    <VisibleTodoList />
+    <AddTask />
+    <VisibleTaskList />
     <Footer />
   </div>
 )
