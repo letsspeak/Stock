@@ -1,7 +1,20 @@
+import axios from 'axios'
+
 export const addTodo = (text) => {
   return {
     type: 'ADD_TODO',
     text
+  }
+}
+
+export const postTodo = (text) => {
+  return (dispatch) => {
+    dispatch({ type: 'POST_TODO' })
+    return axios.post('/api/todos', {
+        title: text
+      })
+      .then(response => dispatch(addTodo(text)))
+      .catch(error => console.log(error))
   }
 }
 

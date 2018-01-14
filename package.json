@@ -16,11 +16,14 @@
     "webpack": "^1.13.2"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "es6-promise": "^3.3.1",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-redux": "^4.4.5",
-    "redux": "^3.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
     "whatwg-fetch": "^1.0.0"
   }
 }

@@ -111,7 +111,7 @@ extension Droplet {
     
     func setupRoutes() throws {
         get("/") { req in
-            if req.headers["X-DevServer"] != nil {
+            if true { // req.headers["X-DevServer"] != nil {
                 // When accessing through the dev server, don't prerender anything
                 return try self.view.make("index", [
                     "html": "",
@@ -141,25 +141,6 @@ extension Droplet {
                 body: self.toJSON(value: self.getStateFromDB())
             )
         }
-        
-        get("hello") { req in
-            var json = JSON()
-            try json.set("hello", "world")
-            return json
-        }
-        
-        get("plaintext") { req in
-            return "Hello, world!"
-        }
-        
-        // response to requests to /info domain
-        // with a description of the request
-        get("info") { req in
-            return req.description
-        }
-        
-        get("description") { req in return req.description }
-        
-        try resource("posts", PostController.self)
+        try resource("api/todos", TodoApi.self)
     }
 }
