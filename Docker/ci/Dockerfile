@@ -7,10 +7,10 @@ RUN apt-get update && \
     apt-get -y install curl && \
     rm -rf /var/lib/apt/lists/*;
 
-# Install Swift & Vapor
+# Install Swift & Vapor & dependencies
 RUN curl -sL https://apt.vapor.sh | bash
 RUN apt-get update && \
-    apt-get -y install swift vapor && \
+    apt-get -y install swift vapor cmysql && \
     rm -rf /var/lib/apt/lists/*;
 
 # Install nodejs
