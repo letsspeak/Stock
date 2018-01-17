@@ -43,6 +43,7 @@ extension Task: Preparation {
             tasks.string(Task.Keys.title)
             tasks.bool(Task.Keys.completed)
         }
+        try database.raw("ALTER TABLE tasks CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin")
     }
     static func revert(_ database: Database) throws {
         try database.delete(self)
