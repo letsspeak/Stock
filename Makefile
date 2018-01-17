@@ -22,6 +22,26 @@ else
 	swift build
 endif
 
+.PHONY: deps
+deps:
+	yarn
+
+.PHONY: enc-secrets
+enc-secrets: $(wildcard ./Config/secrets/*.json)
+ifndef PASSPHRASE
+	$(error environment variable PASSPHRASE is undefined)
+else
+	openssl enc -aes-256-cbc -salt -in $< -out $<.enc -k $(PASSPHRASE)
+endif
+
+.PHONY: dec-secrets
+dec-secrets: $(wildcard ./Config/secrets/*.json.enc)
+ifndef PASSPHRASE
+	$(error environment variable PASSPHRASE is undefined)
+else
+	openssl enc -aes-256-cbc -d -in $< -out $(patsubst %.json.enc,%.json,$<) -k $(PASSPHRASE)
+endif
+
 .PHONY: run
 run:
 	./.build/debug/stock serve
@@ -33,10 +53,6 @@ watch:
 .PHONY: run-dev-server
 run-dev-server:
 	webpack-dev-server --inline --progress --colors -d --host 0.0.0.0 --port 8081
-
-.PHONY: deps
-deps:
-	yarn
 
 #.PHONY: docker
 #docker:
@@ -53,3 +69,7 @@ check-integration:
 .PHONY: run-webdriver
 run-webdriver:
 	./node_modules/.bin/phantomjs --webdriver=4444
+
+.PHONY: xcode
+xcode:
+	swift package generate-xcodeproj

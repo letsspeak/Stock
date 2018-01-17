@@ -1,16 +1,27 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-import App from './components/App'
-import reducer from './reducers'
+import { createLogger } from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
 
+import App from './components/App'
+import rootReducer from './reducers'
+
+import axios from 'axios'
 import 'whatwg-fetch'
 import 'es6-promise'
 
 function load(state) {
-  const store = createStore(reducer, state)
+  const store = createStore(
+    rootReducer,
+    state,
+    applyMiddleware(
+      thunkMiddleware,
+      createLogger()
+    )
+  )
   render(
     <Provider store={store}>
   	  <App />
@@ -24,9 +35,7 @@ if (window.__PRELOADED_STATE__) {
   load(window.__PRELOADED_STATE__);
 } else {
   // We didn't prerender on the server, so we need to get our state
-  fetch('/api/state')
-    .then(
-      response => response.json().then(load),
-      err => console.error(err)
-    );
+  axios.get('/api/todo/tasks')
+    .then(response => load({ "tasks": response.data }))
+    .catch(error => console.log(error))
 }

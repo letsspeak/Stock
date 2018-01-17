@@ -1,0 +1,7 @@
+{
+    "hostname": "127.0.0.1",
+    "user": "stock",
+    "password": "stock",
+    "database": "stock",
+    "encoding": "utf8mb4"
+}

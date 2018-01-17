@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTodo } from '../actions'
+import { postTask } from '../actions'
 
-let AddTodo = ({ dispatch }) => {
+let AddTask = ({ dispatch }) => {
   let input
     
   return (
@@ -11,14 +11,14 @@ let AddTodo = ({ dispatch }) => {
         input = node
       }} />
       <button onClick={() => {
-        dispatch(addTodo(input.value))
+        dispatch(postTask(input.value))
         input.value = ''
       }}>
-        Add Todo
+        Add Task
       </button>
     </div>
   )
 }
-AddTodo = connect()(AddTodo)
+AddTask = connect()(AddTask)
 
-export default AddTodo
+export default AddTask

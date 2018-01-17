@@ -1,7 +1,7 @@
 # Created by https://www.gitignore.io/api/vapor
 
 ### Vapor ###
-Config/secrets
+Config/secrets/*.json
 
 ### Vapor Patch ###
 Packages
@@ -12,9 +12,6 @@ DerivedData/
 .DS_Store
 
 # End of https://www.gitignore.io/api/vapor
-
-# Package-Builder
-Package-Builder/
 
 # React
 Resources/server*

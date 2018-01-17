@@ -4,7 +4,7 @@
 
 ## Docker
 
-### Run Docker and Build
+### Run in Docker and Build
 
 1. `git clone https://github.com/letsspeak/Stock.git && cd Stock`
 1. `docker build ./Docker/ci/` or `docker pull letsspeak/stock-ci:latest`
@@ -39,6 +39,10 @@ Note: deployment server port is 8080
 1. `$ sudo apt-get update`
 1. `$ sudo apt-get -y install swift vapor`
 
+#### MySQL
+
+1. `$`
+
 #### nodejs
 
 1. `$ sudo apt-get install -y nodejs npm`
@@ -64,6 +68,10 @@ Note: deployment server port is 8080
 
 1. `$ brew install vapor/tap/ctls`
 
+#### MySQL
+
+1. `$ brew install vapor/tap/cmysql`
+
 #### yarn
 
 1. `$ brew install yarn`
@@ -72,7 +80,7 @@ Note: deployment server port is 8080
 
 1. `$ git clone https://github.com/letsspeak/Stock.git && cd Stock`
 1. `$ make all`
-1. `$ swift package generate-xcodeproj`
+1. `$ make xcode` (or `swift package generate-xcodeproj`)
 1. Open generated `Stock.xcodeproj`
 1. Select Product -> Scheme -> Edit Scheme... on Xcode menu
 1. Info tab with Run pane, Select Executable `Run` and check `Debug executable`
