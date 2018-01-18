@@ -19,12 +19,14 @@ jobs:
     docker_layer_caching: true
     working_directory: ~/stock
     steps:
-      - checkout
       - attach_workspace:
-          at: ~/stock/Docker/deploy/stock
+          at: .
       - run: make dec-secrets
-      - run: cp -rpf Config/secrets ~/git/Stock/Docker/deploy/stock/Config
-      - run: ls -al ~/git/Stock/Docker/deploy/stock/Config/secrets
+      - run: mkdir -p Docker/deploy/stock/.build/ && cp -rp .build Docker/deploy/stock/
+      - run: mkdir -p Docker/deploy/stock/Config/ && cp -rp .build Docker/deploy/stock/
+      - run: mkdir -p Docker/deploy/stock/JS/ && cp -rp .build Docker/deploy/stock/
+      - run: mkdir -p Docker/deploy/stock/Public/ && cp -rp .build Docker/deploy/stock/
+      - run: mkdir -p Docker/deploy/stock/Resources/ && cp -rp .build Docker/deploy/stock/
       - run: docker build -t $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/stock:$CIRCLE_SHA1 ./Docker/deploy
       - run: docker images
       - run: ./deploy.sh
