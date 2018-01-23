@@ -1,13 +1,23 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux'
+import { Provider } from 'react-redux'
+
+import { createLogger } from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
 
 import App from './components/App'
-import reducer from './reducers'
+import rootReducer from './reducers'
 
 export function render(preloadedState = undefined) {
-  const store = createStore(reducer, preloadedState);
+  const store = createStore(
+    rootReducer,
+    preloadedState,
+    applyMiddleware(
+      thunkMiddleware,
+      createLogger()
+    )
+  )
   return {
     html: renderToString(
       <Provider store={store}>

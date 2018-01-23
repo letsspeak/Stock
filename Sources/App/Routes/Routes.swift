@@ -100,15 +100,18 @@ extension Droplet {
     
 #endif
     
-    /* Dummy DB */
-    func getStateFromDB() -> [String: Any] {
-        return ["todos":
-            [
-                ["id": 0, "text": "TaskA", "completed": false]
-            ]
-        ]
+    enum ServerSideRenderingError : Error {
+        case cannotConvertToArray
     }
     
+    func bytesToArray(data: Bytes) throws -> [Any] {
+        let object = try Jay().anyJsonFromData(data)
+        if let array = object as? [Any] {
+            return array
+        }
+        throw ServerSideRenderingError.cannotConvertToArray
+    }
+
     func setupRoutes() throws {
         get("/") { req in
             let gitCommitHash = self.config["app", "gitCommitHash"]?.string ?? "unknown"
@@ -121,7 +124,11 @@ extension Droplet {
                     ])
             } else {
                 // Prerender state from the DB
-                let state = self.getStateFromDB()
+                let tasks = try! Task.all().makeJSON() // TODO : exception handling
+                let taskArray = try! self.bytesToArray(data:tasks.makeJSON().makeBytes()) // TODO : exception handling
+                let state: [String : Any] = [
+                    "tasks": taskArray
+                ]
                 if let result = self.render(state: state) {
                     return try self.view.make("index", [
                         "html": Node.string(result.html),
@@ -135,14 +142,6 @@ extension Droplet {
                 }
                 throw Abort.badRequest
             }
-        }
-        
-        get("/api/state") { req in
-            return Response(
-                status: .ok,
-                headers: ["Content-Type": "application/json"],
-                body: self.toJSON(value: self.getStateFromDB())
-            )
         }
         try resource("api/todo/tasks", TodoTasksApi.self)
     }
