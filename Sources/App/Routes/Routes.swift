@@ -111,11 +111,13 @@ extension Droplet {
     
     func setupRoutes() throws {
         get("/") { req in
-            if true { // req.headers["X-DevServer"] != nil {
+            let gitCommitHash = self.config["app", "gitCommitHash"]?.string ?? "unknown"
+            if req.headers["X-DevServer"] != nil {
                 // When accessing through the dev server, don't prerender anything
                 return try self.view.make("index", [
                     "html": "",
-                    "state": "undefined"
+                    "state": "undefined",
+                    "gitCommitHash": gitCommitHash
                     ])
             } else {
                 // Prerender state from the DB
@@ -123,7 +125,8 @@ extension Droplet {
                 if let result = self.render(state: state) {
                     return try self.view.make("index", [
                         "html": Node.string(result.html),
-                        "state": Node.string(result.state)
+                        "state": Node.string(result.state),
+                        "gitCommitHash": gitCommitHash
                         ])
                 } else {
                     let json = self.toJSON(value: state).replacingOccurrences(of: "'", with: "'\\''")

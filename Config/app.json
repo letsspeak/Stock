@@ -1,3 +1,4 @@
 {
-	"foo": "foo-bar"
+    "foo": "foo-bar",
+    "gitCommitHash": "74757cb"
 }

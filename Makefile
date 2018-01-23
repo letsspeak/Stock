@@ -26,6 +26,10 @@ endif
 deps:
 	yarn
 
+.PHONY: update-config
+update-config:
+	cat ./Config/app.json | jq --arg gitCommitHash $$(git rev-parse --short HEAD) '. + {gitCommitHash: $$gitCommitHash}' --indent 4 > ./Config/app.json
+
 .PHONY: enc-secrets
 enc-secrets: $(wildcard ./Config/secrets/*.json)
 ifndef PASSPHRASE

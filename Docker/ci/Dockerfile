@@ -2,9 +2,9 @@ FROM ubuntu:16.04
 
 LABEL maintainer="letsspeak"
 
-# Install CURL
+# Install curl & jq
 RUN apt-get update && \
-    apt-get -y install curl && \
+    apt-get -y install curl jq && \
     rm -rf /var/lib/apt/lists/*;
 
 # Install Swift & Vapor & dependencies

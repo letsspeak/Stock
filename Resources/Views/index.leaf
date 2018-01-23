@@ -11,5 +11,8 @@
 window.__PRELOADED_STATE__ = #raw(state);
 </script>
 <script src="/js/app.js"></script>
+<footer>
+#(gitCommitHash)
+</footer>
 </body>
 </html>

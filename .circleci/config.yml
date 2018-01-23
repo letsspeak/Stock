@@ -21,6 +21,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run: make update-config
       - run: make dec-secrets
       - run: mkdir -p Docker/deploy/stock/.build/ && cp -rp .build Docker/deploy/stock/
       - run: mkdir -p Docker/deploy/stock/Config/ && cp -rp Config Docker/deploy/stock/
