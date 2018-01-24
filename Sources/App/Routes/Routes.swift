@@ -17,16 +17,6 @@ extension Droplet {
     
 #if os(Linux)
     
-    /* Helper to convert any value into JSON */
-    // Note: Jay has a bug on OS X that it doesn't convert [String->Int] mappings
-    // properly: https://github.com/DanToml/Jay/issues/52
-    // Once (and if) this is fixed, we can drop the OSX-specific JSONSerialization
-    // implementation in favor of this one.
-    func toJSON(value: Any) -> String {
-        let data = try! Jay().dataFromJson(any: value)
-        return String(bytes: data, encoding: String.Encoding.utf8)!
-    }
-    
     func render(state: [String: Any]) -> (html: String, state: String)? {
         let stateJSON = toJSON(value: state)
         let ctx = duk_create_heap(nil, nil, nil, nil, nil)
@@ -63,12 +53,6 @@ extension Droplet {
     // OS X
     ////////////////////////////////////////////////////////////////////////////////
     
-    /* Helper to convert any value into JSON */
-    func toJSON(value: Any) -> String {
-        let data = try! JSONSerialization.data(withJSONObject: value)
-        return String(data: data, encoding: .utf8)!
-    }
-    
     /* Helper to load the JavaScript server code */
     func loadJS() -> JSValue? {
         let context = JSContext()
@@ -99,6 +83,11 @@ extension Droplet {
     }
     
 #endif
+    
+    func toJSON(value: Any) -> String {
+        let data = try! Jay().dataFromJson(any: value)
+        return String(bytes: data, encoding: String.Encoding.utf8)!
+    }
     
     enum ServerSideRenderingError : Error {
         case cannotConvertToArray
