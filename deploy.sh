@@ -6,6 +6,7 @@ AWS_ECS_CONTAINER_NAME=stock-container
 AWS_ECS_CLUSTER_NAME=stock-cluster
 AWS_ECS_SERVICE_NAME=stock-service
 AWS_ECR_REP_NAME=stock
+AWS_LOGS_GROUP=stock-log-group
 
 # Create Task Definition
 make_task_def(){
@@ -21,11 +22,18 @@ make_task_def(){
                     "containerPort": 8080,
                     "hostPort": 0
                 }
-            ]
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "%s",
+                    "awslogs-region": "%s"
+                }
+            }
         }
     ]'
 
-    task_def=$(printf "$task_template" ${AWS_ECS_CONTAINER_NAME} $AWS_ACCOUNT_ID ${AWS_DEFAULT_REGION} ${AWS_ECR_REP_NAME} $CIRCLE_SHA1)
+    task_def=$(printf "$task_template" $AWS_ECS_CONTAINER_NAME $AWS_ACCOUNT_ID $AWS_DEFAULT_REGION $AWS_ECR_REP_NAME $CIRCLE_SHA1 $AWS_LOGS_GROUP $AWS_DEFAULT_REGION)
 }
 
 # more bash-friendly output for jq
