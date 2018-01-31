@@ -1,12 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { applyMiddleware, createStore } from 'redux'
-import { Provider } from 'react-redux'
 
 import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 
-import App from './components/App'
+import Root from './components/Root'
 import rootReducer from './reducers'
 
 import axios from 'axios'
@@ -23,9 +22,7 @@ function load(state) {
     )
   )
   render(
-    <Provider store={store}>
-  	  <App />
-    </Provider>,
+    <Root store={store} />,
     document.getElementById('root')
   )
 }

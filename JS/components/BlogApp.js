@@ -3,12 +3,10 @@ import AddTask from '../containers/AddTask'
 import VisibleTaskList from '../containers/VisibleTaskList'
 import Footer from './Footer'
 
-const App = () => (
+const BlogApp = () => (
   <div>
-    <AddTask />
-    <VisibleTaskList />
-    <Footer />
+    <span>Blog is now constructing...</span>
   </div>
 )
 
-export default App
+export default BlogApp
