@@ -236,6 +236,15 @@
         }
       },
       {
+        "package": "VaporXFPMiddleware",
+        "repositoryURL": "https://github.com/kamcma/vapor-xfp-middleware",
+        "state": {
+          "branch": null,
+          "revision": "a1e547013c8f50b9c734a244dac82065b0b195aa",
+          "version": "1.0.0"
+        }
+      },
+      {
         "package": "swift-duktape",
         "repositoryURL": "https://github.com/remko/swift-duktape.git",
         "state": {

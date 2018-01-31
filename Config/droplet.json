@@ -35,6 +35,7 @@
     "//": "date: Adds the 'Date' header to HTTP requests.",
     "//": "file: Catches 404 errors and checks for files in the Public/ folder",
     "middleware": [
+        "xfp-middleware",
         "error",
         "date",
         "file"

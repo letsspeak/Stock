@@ -1,4 +1,5 @@
 import App
+import XFPMiddleware
 
 /// We have isolated all of our App's logic into
 /// the App module because it makes our app
@@ -18,6 +19,8 @@ import App
 /// if no command is given, it will default to "serve"
 let config = try Config()
 try config.setup()
+let xfpMiddleware = XFPMiddleware()
+config.addConfigurable(middleware: xfpMiddleware, name: "xfp-middleware")
 
 let drop = try Droplet(config)
 try drop.setup()
