@@ -1,16 +1,22 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { applyMiddleware, createStore } from 'redux'
+import { Provider } from 'react-redux'
 
 import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 
-import Root from './components/Root'
+import { BrowserRouter as Router, Route, browserHistory } from 'react-router-dom'
 import rootReducer from './reducers'
 
 import axios from 'axios'
 import 'whatwg-fetch'
 import 'es6-promise'
+
+import Layout from './components/Layout'
+import Portfolio from './components/Portfolio'
+import TaskApp from './components/TaskApp'
+import BlogApp from './components/BlogApp'
 
 function load(state) {
   const store = createStore(
@@ -22,7 +28,15 @@ function load(state) {
     )
   )
   render(
-    <Root store={store} />,
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        <Layout>
+          <Route exact path="/" component={Portfolio} />
+          <Route path="/tasks" component={TaskApp} />
+          <Route path="/blog" component={BlogApp} />
+        </Layout>
+      </Router>
+    </Provider>,
     document.getElementById('root')
   )
 }
