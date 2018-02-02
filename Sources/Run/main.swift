@@ -19,8 +19,17 @@ import XFPMiddleware
 /// if no command is given, it will default to "serve"
 let config = try Config()
 try config.setup()
+
 let xfpMiddleware = XFPMiddleware()
 config.addConfigurable(middleware: xfpMiddleware, name: "xfp-middleware")
+
+let assetDirs = [
+    "js/",
+    "images/",
+]
+
+let assetMiddleware = AssetMiddleware(assetDirs: assetDirs, publicDir: config.publicDir)
+config.addConfigurable(middleware: assetMiddleware, name: "asset-middleware")
 
 let drop = try Droplet(config)
 try drop.setup()
