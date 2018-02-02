@@ -17,17 +17,26 @@ extension Droplet {
     
 #if os(Linux)
     
-    func render(state: [String: Any]) -> (html: String, state: String)? {
+    func render(path: String, state: [String: Any]) -> (html: String, state: String)? {
         let stateJSON = toJSON(value: state)
-        let ctx = duk_create_heap(nil, nil, nil, nil, nil)
+        let ctx = duk_create_heap(nil, nil, nil, nil, nil) // []
         defer { duk_destroy_heap(ctx) }
-        duk_eval_file_noresult(ctx, jsFile)
-        duk_push_global_object(ctx)
-        duk_get_prop_string(ctx, -1, "server")
-        duk_get_prop_string(ctx, -1, "render")
-        duk_push_string(ctx, stateJSON)
-        duk_json_decode(ctx, -1)
-        let ret = duk_safe_call(ctx, { ctx in duk_call(ctx, 1); return 1; }, 1, 1);
+        duk_eval_file_noresult(ctx, jsFile) // => [] no stack changes, but global object constructed
+        duk_push_global_object(ctx) // => [gloabl]
+        duk_get_prop_string(ctx, -1, "server") // [global, global.server]
+        duk_get_prop_string(ctx, -1, "render") // [global, global.server, global.server.render]
+        duk_push_string(ctx, path) // [global, server, render, path]
+        duk_push_string(ctx, stateJSON) // [global, server, render, path, stateJSON]
+        duk_json_decode(ctx, -1) // [global, server, render, path, decodedState]
+        let ret = duk_safe_call(
+            ctx,
+            { ctx in
+                duk_call(ctx, 2); // render(decodedState)
+                return 1;
+            },
+            2, // nargs
+            1); // nrets
+        // => [global, server, result]
         if ret != DUK_EXEC_SUCCESS {
             let errorMessage = String(validatingUTF8: duk_safe_to_string(ctx, -1))!
             print("Error calling render(): \(errorMessage)")
@@ -71,9 +80,9 @@ extension Droplet {
     }
     
     /* Helper to call the JavaScript render() function */
-    func render(state: [String: Any]) -> (html: String, state: String)? {
+    func render(path: String, state: [String: Any]) -> (html: String, state: String)? {
         if let result = loadJS()?.forProperty("render")?
-            .call(withArguments: [state]).toDictionary() {
+            .call(withArguments: [path, state]).toDictionary() {
             return (
                 html: result["html"]! as! String,
                 state: result["state"]! as! String
@@ -102,23 +111,21 @@ extension Droplet {
     }
 
     func setupRoutes() throws {
-        get("/") { req in
+        get("*") { req in
             let gitCommitHash = self.config["app", "gitCommitHash"]?.string ?? "unknown"
             if req.headers["X-DevServer"] != nil {
-                // When accessing through the dev server, don't prerender anything
                 return try self.view.make("index", [
                     "html": "",
                     "state": "undefined",
                     "gitCommitHash": gitCommitHash
                     ])
             } else {
-                // Prerender state from the DB
                 let tasks = try! Task.all().makeJSON() // TODO : exception handling
                 let taskArray = try! self.bytesToArray(data:tasks.makeJSON().makeBytes()) // TODO : exception handling
                 let state: [String : Any] = [
                     "tasks": taskArray
                 ]
-                if let result = self.render(state: state) {
+                if let result = self.render(path: req.uri.path, state: state) {
                     return try self.view.make("index", [
                         "html": Node.string(result.html),
                         "state": Node.string(result.state),
@@ -132,6 +139,6 @@ extension Droplet {
                 throw Abort.badRequest
             }
         }
-        try resource("api/todo/tasks", TodoTasksApi.self)
+        try resource("/api/todo/tasks", TodoTasksApi.self)
     }
 }

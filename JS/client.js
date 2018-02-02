@@ -6,12 +6,17 @@ import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 
-import App from './components/App'
+import { BrowserRouter as Router, Route, browserHistory } from 'react-router-dom'
 import rootReducer from './reducers'
 
 import axios from 'axios'
 import 'whatwg-fetch'
 import 'es6-promise'
+
+import Layout from './components/Layout'
+import Portfolio from './components/Portfolio'
+import TaskApp from './components/TaskApp'
+import BlogApp from './components/BlogApp'
 
 function load(state) {
   const store = createStore(
@@ -24,7 +29,13 @@ function load(state) {
   )
   render(
     <Provider store={store}>
-  	  <App />
+      <Router history={browserHistory}>
+        <Layout>
+          <Route exact path="/" component={Portfolio} />
+          <Route path="/tasks" component={TaskApp} />
+          <Route path="/blog" component={BlogApp} />
+        </Layout>
+      </Router>
     </Provider>,
     document.getElementById('root')
   )

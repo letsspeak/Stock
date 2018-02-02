@@ -3,7 +3,7 @@ import AddTask from '../containers/AddTask'
 import VisibleTaskList from '../containers/VisibleTaskList'
 import Footer from './Footer'
 
-const App = () => (
+const TaskApp = () => (
   <div>
     <AddTask />
     <VisibleTaskList />
@@ -11,4 +11,4 @@ const App = () => (
   </div>
 )
 
-export default App
+export default TaskApp

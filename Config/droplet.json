@@ -38,6 +38,7 @@
         "xfp-middleware",
         "error",
         "date",
+        "asset-middleware",
         "file"
     ],
 
