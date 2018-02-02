@@ -25,15 +25,16 @@ extension Droplet {
         duk_push_global_object(ctx) // => [gloabl]
         duk_get_prop_string(ctx, -1, "server") // [global, global.server]
         duk_get_prop_string(ctx, -1, "render") // [global, global.server, global.server.render]
-        duk_push_string(ctx, stateJSON) // [global, server, render, stateJSON]
-        duk_json_decode(ctx, -1) // [global, server, render, decodedState]
+        duk_push_string(ctx, path) // [global, server, render, path]
+        duk_push_string(ctx, stateJSON) // [global, server, render, path, stateJSON]
+        duk_json_decode(ctx, -1) // [global, server, render, path, decodedState]
         let ret = duk_safe_call(
             ctx,
             { ctx in
-                duk_call(ctx, 1); // render(decodedState)
+                duk_call(ctx, 2); // render(decodedState)
                 return 1;
             },
-            1, // nargs
+            2, // nargs
             1); // nrets
         // => [global, server, result]
         if ret != DUK_EXEC_SUCCESS {
@@ -110,17 +111,15 @@ extension Droplet {
     }
 
     func setupRoutes() throws {
-        get("/tasks") { req in
+        get("*") { req in
             let gitCommitHash = self.config["app", "gitCommitHash"]?.string ?? "unknown"
             if req.headers["X-DevServer"] != nil {
-                // When accessing through the dev server, don't prerender anything
                 return try self.view.make("index", [
                     "html": "",
                     "state": "undefined",
                     "gitCommitHash": gitCommitHash
                     ])
             } else {
-                // Prerender state from the DB
                 let tasks = try! Task.all().makeJSON() // TODO : exception handling
                 let taskArray = try! self.bytesToArray(data:tasks.makeJSON().makeBytes()) // TODO : exception handling
                 let state: [String : Any] = [
