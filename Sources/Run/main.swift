@@ -25,6 +25,7 @@ config.addConfigurable(middleware: xfpMiddleware, name: "xfp-middleware")
 
 let assetDirs = [
     "js/",
+    "styles/",
     "images/",
 ]
 

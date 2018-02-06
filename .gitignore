@@ -14,7 +14,8 @@ DerivedData/
 # End of https://www.gitignore.io/api/vapor
 
 # React
-Resources/server*
+Resources/server.js
+Resources/styles
 Public/js
 node_modules
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 
@@ -18,7 +18,7 @@ import Portfolio from './components/Portfolio'
 import TaskApp from './components/TaskApp'
 import BlogApp from './components/BlogApp'
 
-function load(state) {
+function load(state, renderMethod) {
   const store = createStore(
     rootReducer,
     state,
@@ -27,7 +27,7 @@ function load(state) {
       createLogger()
     )
   )
-  render(
+  renderMethod(
     <Provider store={store}>
       <Router history={browserHistory}>
         <Layout>
@@ -43,10 +43,10 @@ function load(state) {
 
 // Check if we can preload the state from a server-rendered page
 if (window.__PRELOADED_STATE__) {
-  load(window.__PRELOADED_STATE__);
+  load(window.__PRELOADED_STATE__, ReactDOM.hydrate);
 } else {
   // We didn't prerender on the server, so we need to get our state
   axios.get('/api/todo/tasks')
-    .then(response => load({ "tasks": response.data }))
+    .then(response => load({ "tasks": response.data }, ReactDOM.render))
     .catch(error => console.log(error))
 }

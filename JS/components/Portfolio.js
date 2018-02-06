@@ -1,8 +1,9 @@
 import React from 'react'
+import styles from '../styles/portfolio.css'
 
 const Portfolio = () => (
   <div>
-    <span>Here's My Portfolio</span>
+    <span className={styles.title}>Here's My Portfolio</span>
   </div>
 )
 

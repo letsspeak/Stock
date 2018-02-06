@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Footer from './Footer'
+import styles from '../styles/layout.css'
 
 class Layout extends Component {
   render() {
-    let { children } = this.props;
+    const { children } = this.props;
+
     return (
-      <div>
+      <div className="page">
+        <div className={styles.headerLine} />
         <h1>Welcome to My Website!</h1>
         <ul>
           <li><Link to="/">Top</Link></li>
