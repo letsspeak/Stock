@@ -2,6 +2,8 @@
 
 var path = require("path");
 var webpack = require('webpack');
+var combineLoaders = require('webpack-combine-loaders')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 function createConfig(isProductionMode) {
   var config = {
@@ -10,16 +12,24 @@ function createConfig(isProductionMode) {
         'process.env': {
           'NODE_ENV': isProductionMode ? '"production"' : 'undefined'
         }
-      })
+      }),
+      new ExtractTextPlugin('./styles/styles.css'),
       // new webpack.optimize.DedupePlugin()
     ],
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
           loader: 'babel-loader'
-        }
+        },
+        {
+          test: /\.css$/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: 'css-loader?modules'
+          })
+        },
       ]
     },
     devServer: {
