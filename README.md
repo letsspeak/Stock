@@ -1,6 +1,5 @@
 # Stock
-[![Build Status](https://travis-ci.org/letsspeak/Stock.svg?branch=master)](https://travis-ci.org/letsspeak/Stock)
-![](https://circleci.com/gh/letsspeak/stock/tree/master.svg?style=shield&circle-token=5caad40bfa55f97a065ec83e09f8cf1cdeadb5d2)
+[![CircleCI](https://circleci.com/gh/letsspeak/Stock.svg?style=svg)](https://circleci.com/gh/letsspeak/Stock)
 
 ## Docker
 
