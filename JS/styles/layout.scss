@@ -1,0 +1,95 @@
+@import "variables";
+
+html {
+  font-size: 16px; // 16px * 62.5%: Base 10 font sizing (i.e. 1.0rem == 10px )
+  color: $color-dark-gray;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  transition: all 200ms linear;
+  text-decoration: none;
+  color: $color-primary;
+  cursor: pointer;
+}
+
+a:link {
+}
+
+a:visited {
+}
+
+.headerLine {
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: $color-primary;
+}
+
+.header {
+  position: relative;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 3rem 0;
+
+  margin-right: auto;
+  margin-left: auto;
+
+  height: 3rem;
+  padding: 2rem 2.5rem;
+
+  @media (min-width: $breakpoint-large) {
+    width: $breakpoint-large;
+  }
+
+  .logo {
+    a, span {
+      display: block;
+    }
+    .name {
+      color: $color-dark-gray;
+    }
+    .name:hover {
+      color: $color-primary;
+    }
+    .aka {
+      color: $color-light-gray;
+    }
+    .job {
+      color: $color-light-gray;
+    }
+  }
+
+  nav ul {
+    display: flex;
+    li {
+      list-style-type: none;
+      margin-left: 4rem;
+      a {
+        color: $color-dark-gray;
+      }
+      a:hover {
+        color: $color-primary;
+      }
+    }
+    .email a {
+      color: $color-light-gray;
+    }
+    .email a:hover {
+      color: $color-primary;
+    }
+  }
+}
+

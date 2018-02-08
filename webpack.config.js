@@ -24,10 +24,10 @@ function createConfig(isProductionMode) {
           loader: 'babel-loader'
         },
         {
-          test: /\.css$/,
+          test: /\.scss$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: 'css-loader?modules'
+            use: 'css-loader?modules!sass-loader'
           })
         },
       ]
