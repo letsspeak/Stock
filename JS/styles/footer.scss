@@ -1,0 +1,69 @@
+@import "variables";
+@import "base";
+
+.footer {
+  background-color: $color-off-black;
+
+  .profile {
+    @extend .container;
+    flex-direction: column;
+    padding-bottom: 0;
+
+    h2.name {
+      color: $color-light-gray;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: $color-medium-gray;
+    }
+  }
+
+  .navigations {
+    @extend .container;
+    flex-direction: row;
+    padding-bottom: 0;
+
+    a {
+      color: $color-medium-gray;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    nav {
+      margin-right: 4rem;
+
+      h3 {
+        margin-top: 0.5rem;
+        color: $color-light-gray;
+      }
+
+      ul {
+        padding: 0;
+
+        li {
+          list-style-type: none;
+          color: $color-medium-gray;
+        }
+      }
+    }
+  }
+
+  .copyright {
+    @extend .container;
+    flex-direction: column;
+
+    a {
+      color: $color-medium-gray;
+      text-decoration: underline;
+    }
+
+    span {
+      color: $color-medium-gray;
+    }
+  }
+}
+
+

@@ -1,0 +1,58 @@
+@import "variables";
+@import "base";
+
+.header {
+  @extend .container;
+
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  margin-top: 1.5rem;
+  height: 3rem;
+
+  .logo {
+    a, span {
+      display: block;
+    }
+    .name {
+      color: $color-dark-gray;
+    }
+    .name:hover {
+      color: $color-primary;
+    }
+    .aka {
+      color: $color-light-gray;
+    }
+    .job {
+      color: $color-light-gray;
+    }
+  }
+
+  nav ul {
+    display: flex;
+    li {
+      list-style-type: none;
+      margin-left: 4rem;
+      a {
+        color: $color-dark-gray;
+      }
+      a:hover {
+        color: $color-primary;
+      }
+      .active {
+        color: $color-primary;
+      }
+    }
+    .email a {
+      color: $color-light-gray;
+    }
+    .email a:hover {
+      color: $color-primary;
+    }
+  }
+}
+

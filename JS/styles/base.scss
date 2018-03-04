@@ -1,0 +1,53 @@
+@import "variables";
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+html {
+  font-size: 16px; // 16px * 62.5%: Base 10 font sizing (i.e. 1.0rem == 10px )
+  color: $color-dark-gray;
+}
+
+body {
+  margin: 0;
+}
+
+h2 {
+  margin: 1rem 0;
+}
+
+a {
+  transition: all 200ms linear;
+  text-decoration: none;
+  color: $color-primary;
+  cursor: pointer;
+}
+
+a:link {
+}
+
+a:visited {
+}
+
+.flex {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.container {
+  @extend .flex;
+
+  @media (min-width: $breakpoint-large) {
+    width: $breakpoint-large;
+  }
+
+  padding: 2rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
