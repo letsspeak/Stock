@@ -1,0 +1,70 @@
+@import "variables";
+@import "base";
+
+.main {
+  @extend .container;
+  flex-direction: column;
+  padding-bottom: 5rem;
+
+  .profile {
+    @extend .flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 6rem 0 8rem 0;
+
+    .portrait {
+      width: 14rem;
+      height: 14rem;
+      clip-path: circle(6rem at center);
+      -webkit-clip-path: circle(6rem at center);
+    }
+
+    .description {
+      margin-left: 3rem;
+
+      .twitter {
+        margin-left: 2rem;
+      }
+    }
+  }
+
+  .title {
+  }
+
+  .products {
+    @extend .flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .product {
+      margin-right: 3rem;
+
+
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+
+  .skillsets {
+    @extend .flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .language {
+      margin-right: 14rem;
+    }
+  }
+
+  .social {
+    .socials {
+      margin-bottom: 1em;
+      a {
+        margin-right: 1em;
+      }
+    }
+  }
+
+}
+
+
